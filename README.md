@@ -6,7 +6,7 @@ so I'm re-doing it on the best language to ever exist.
 
 ## Two-Phase 68HC12 Assembler
 
-This implementation was achieved by making use of the !(Motorola 68HC12 Reference Manual 1996)[https://archive.org/details/bitsavers_motorola68eferenceManual1996_20968848]
+This implementation was achieved by making use of the [Motorola 68HC12 Reference Manual 1996](https://archive.org/details/bitsavers_motorola68eferenceManual1996_20968848)
 
 ### Phase 1 – Symbol & Size Calculation
 
@@ -50,15 +50,15 @@ At this point we will print the line instruction. Token with token value.
 
 #### B. Line Type Constraints (Size and Character Rules)
 
-| Element | Rule/Constraint | Source |
-| :--- | :--- | :--- |
-| **Comment** | It's completely ignored source code as long as the scanner finds a (`;`) it stops analyzing that line | |
-| **Label** | Must start with a letter (case-insensitive) located in the first position of the line. | |
-| **Label** | **Length must be between 3 and 8 characters**. | |
-| **Label** | Subsequent characters (after the first letter) can be letters, numbers, or underscores (`_`). Any other character results in an error. | |
-| **Opcode** | Must begin with a letter (case-insensitive). | |
-| **Opcode** | **Maximum length is 5 characters**. | |
-| **Operand** | Can start with any character; subsequent practices review specific format exceptions. Can have any length. | |
+| Element | Rule/Constraint |
+| :--- | :--- |
+| **Comment** | It's completely ignored source code as long as the scanner finds a (`;`) it stops analyzing that line |
+| **Label** | Must start with a letter (case-insensitive) located in the first position of the line. |
+| **Label** | **Length must be between 3 and 8 characters**. |
+| **Label** | Subsequent characters (after the first letter) can be letters, numbers, or underscores (`_`). Any other character results in an error. |
+| **Opcode** | Must begin with a letter (case-insensitive). |
+| **Opcode** | **Maximum length is 5 characters**. |
+| **Operand** | Can start with any character; subsequent practices review specific format exceptions. Can have any length. |
 
 #### C. Token Output and Initialization
 1.  **Variable Naming:** Use string variables named `label`, `opcode`, and `operand`.
@@ -84,22 +84,22 @@ We parse each numerical base to decimal for operations, then back to hexadecimal
 #### B. Addressing Mode Constraints (Numeric Range/Format)
 Operand values must be validated against specific bit sizes, ranges, and formats.
 
-| ADDR Mode | Description/Format | Numeric Range Constraints (Decimal) | Opcode Size/Bytes | Source |
-| :--- | :--- | :--- | :--- | :--- |
-| **Inherente (INH)** | No operand. | N/A | Varies (e.g., 1 or 2 bytes). | |
-| **Immediate (IMM)** | Starts with `#`. Uses all four bases. | 8-bit: 0 to 255. 16-bit: 256 to 65,535. | Varies (e.g., 2 or 3 bytes). | |
-| **Direct (DIR)** | Uses all four bases. | 0 to 255. | Varies (e.g., 2 bytes). | |
-| **Extended (EXT)** | Uses all four bases, or a label. | 256 to 65,535. | Varies (e.g., 3 bytes). | |
-| **Indexed (IDX) 5-bit**| Format: `n,R` where R is X, Y, SP, or PC. | -16 to 15. | Varies (e.g., 2 bytes). | |
-| **Indexed (IDX) 5-bit Exception** | `,X` must be interpreted as `0,X`. | 0 (implicitly). | 2 bytes. | |
-| **Indexed (IDX1) 9-bit**| Format: `n,R` where R is X, Y, SP, or PC. | -256 to -17 AND 16 to 255. | Varies (e.g., 3 bytes). | |
-| **Indexed (IDX2) 16-bit**| Format: `n,R` where R is X, Y, SP, or PC. | 256 to 65,535. | Varies (e.g., 4 bytes). | |
-| **Indexed (IDX) Pre/Post**| Format: `n,+R`, `n,-R`, `R+`, `R-`. Registers R are X, Y, or SP (PC not allowed). Offset $n$ is 1 to 8. | $\pm$ 1 to 8. | Varies (e.g., 2 bytes). | |
-| **Indexed (IDX) Acc Offset**| Format: `A/B/D,R`. Registers R are X, Y, SP, or PC. Accumulators A, B are 8-bit offset; D is 16-bit offset. | N/A (offset is register value) | Varies (e.g., 2 bytes). | |
-| **Indexed Indirect \[IDX2\]**| Format: Must be enclosed in brackets `[n,R]`. R is X, Y, SP, or PC. | 0 to 65,535. | Varies (e.g., 4 bytes). | |
-| **Indexed Indirect \[D,IDX\]**| Format: Must be enclosed in brackets `[D,R]`. Only D register before comma. R is X, Y, SP, or PC. | N/A (offset is D register value) | Varies (e.g., 2 bytes). | |
-| **Relative (REL) 8/16-bit**| Operand must be a word (label) satisfying label rules. Instruction determines 8 or 16-bit jump. | N/A (calculated offset) | Varies (e.g., 2 or 4 bytes). | |
-| **Relative (REL) 9-bit/Loop Primitive**| Format: `R, Label`. Register R (A, B, D, X, Y, SP). Used for instructions like `IBNE`, `DBEQ`. | N/A (calculated offset) | 3 bytes. | |
+| ADDR Mode | Description/Format | Numeric Range Constraints (Decimal) | Opcode Size/Bytes |
+| :--- | :--- | :--- | :--- |
+| **Inherente (INH)** | No operand. | N/A | Varies (e.g., 1 or 2 bytes). |
+| **Immediate (IMM)** | Starts with `#`. Uses all four bases. | 8-bit: 0 to 255. 16-bit: 256 to 65,535. | Varies (e.g., 2 or 3 bytes). |
+| **Direct (DIR)** | Uses all four bases. | 0 to 255. | Varies (e.g., 2 bytes). |
+| **Extended (EXT)** | Uses all four bases, or a label. | 256 to 65,535. | Varies (e.g., 3 bytes). |
+| **Indexed (IDX) 5-bit**| Format: `n,R` where R is X, Y, SP, or PC. | -16 to 15. | Varies (e.g., 2 bytes). |
+| **Indexed (IDX) 5-bit Exception** | `,X` must be interpreted as `0,X`. | 0 (implicitly). | 2 bytes. |
+| **Indexed (IDX1) 9-bit**| Format: `n,R` where R is X, Y, SP, or PC. | -256 to -17 AND 16 to 255. | Varies (e.g., 3 bytes). |
+| **Indexed (IDX2) 16-bit**| Format: `n,R` where R is X, Y, SP, or PC. | 256 to 65,535. | Varies (e.g., 4 bytes). |
+| **Indexed (IDX) Pre/Post**| Format: `n,+R`, `n,-R`, `R+`, `R-`. Registers R are X, Y, or SP (PC not allowed). Offset $n$ is 1 to 8. | $\pm$ 1 to 8. | Varies (e.g., 2 bytes). |
+| **Indexed (IDX) Acc Offset**| Format: `A/B/D,R`. Registers R are X, Y, SP, or PC. Accumulators A, B are 8-bit offset; D is 16-bit offset. | N/A (offset is register value) | Varies (e.g., 2 bytes). |
+| **Indexed Indirect \[IDX2\]**| Format: Must be enclosed in brackets `[n,R]`. R is X, Y, SP, or PC. | 0 to 65,535. | Varies (e.g., 4 bytes). |
+| **Indexed Indirect \[D,IDX\]**| Format: Must be enclosed in brackets `[D,R]`. Only D register before comma. R is X, Y, SP, or PC. | N/A (offset is D register value) | Varies (e.g., 2 bytes). |
+| **Relative (REL) 8/16-bit**| Operand must be a word (label) satisfying label rules. Instruction determines 8 or 16-bit jump. | N/A (calculated offset) | Varies (e.g., 2 or 4 bytes). |
+| **Relative (REL) 9-bit/Loop Primitive**| Format: `R, Label`. Register R (A, B, D, X, Y, SP). Used for instructions like `IBNE`, `DBEQ`. | N/A (calculated offset) | 3 bytes. |
 
 #### C. Error Handling
 Specific errors must be reported, such as:
@@ -121,18 +121,18 @@ This phase focuses on memory addressing (`ALC - address locality counter`) and g
 
 #### B. Assembler Directives
 
-| Directive | Function | Constraints | Effect on CONTLOC | Source |
-| :--- | :--- | :--- | :--- | :--- |
-| **ORG** | Sets the starting memory address (DIR\_INIC). | Must exist only once. The label field must be null. Operand range: 0 to 65,535. | Sets initial `CONTLOC`. | |
-| **EQU** | Assigns an absolute value to a label. | Must always have a label (ETIQUETA) and an operand. Operand range: 0 to 65,535. | Does not generate code or advance CONTLOC (uses `VALOR` output type). | |
-| **END** | Signals the end of assembly. | Must be the last instruction and exist only once. | N/A | |
-| **DC (Define Constant)**| Defines constant values in memory. | Requires a size unit (`.B` or `.W`). `.B` range: 0 to 255. `.W` range: 0 to 65,535. | Increments CONTLOC by the total bytes defined. | |
-| **DS (Define Space)**| Reserves memory space initialized to 0's. | Requires a size unit (`.B` or `.W`) and a quantity of contiguous blocks. | Increments CONTLOC by (Unit Size * Quantity). | |
+| Directive | Function | Constraints | Effect on CONTLOC |
+| :--- | :--- | :--- | :--- |
+| **ORG** | Sets the starting memory address (DIR\_INIC). | Must exist only once. The label field must be null. Operand range: 0 to 65,535. | Sets initial `CONTLOC`. |
+| **EQU** | Assigns an absolute value to a label. | Must always have a label (ETIQUETA) and an operand. Operand range: 0 to 65,535. | Does not generate code or advance CONTLOC (uses `VALOR` output type). |
+| **END** | Signals the end of assembly. | Must be the last instruction and exist only once. | N/A |
+| **DC (Define Constant)**| Defines constant values in memory. | Requires a size unit (`.B` or `.W`). `.B` range: 0 to 255. `.W` range: 0 to 65,535. | Increments CONTLOC by the total bytes defined. |
+| **DS (Define Space)**| Reserves memory space initialized to 0's. | Requires a size unit (`.B` or `.W`) and a quantity of contiguous blocks. | Increments CONTLOC by (Unit Size * Quantity). |
 
 #### C. Symbol Table (TABSIM.txt)
 1.  **Output File:** `TABSIM.txt`.
-2.  **Contents:** Stores the symbol (ETIQUETA, $S_i$) and its corresponding value ($T_i$).
-3.  **Value Format:** Values ($T_i$) must be stored as two bytes (4 hexadecimal digits), always in hexadecimal format.
+2.  **Contents:** Stores the symbol (ETIQUETA, Si) and its corresponding value (Ti).
+3.  **Value Format:** Values (Ti) must be stored as two bytes (4 hexadecimal digits), always in hexadecimal format.
 4.  **Label Type:** Labels assigned by `CONTLOC` are **Relative**; those assigned by `EQU` are **Absolute**.
 5.  **Uniqueness:** Labels cannot be repeated.
 6.  **Timing:** Labels are added as they appear in the source code.
@@ -148,24 +148,24 @@ The final phases require calculating the machine code (opcode + extension bytes/
 
 #### B. Specific Encoding Requirements (Numeric Operands)
 
-| ADDR Mode | Encoding Components | Calculation Details | Source |
-| :--- | :--- | :--- | :--- |
-| **Inherente (INH)** | Opcode only (1 or 2 bytes). | No additional calculation. | |
-| **Immediate (IMM)** | Opcode + $ii$ (8-bit) or $jj kk$ (16-bit). | Operand converted to hexadecimal format corresponding to 1 or 2 bytes, depending on range. | |
-| **Direct (DIR)** | Opcode + $dd$ (8-bit address). | Operand value is converted to 8-bit hexadecimal. | |
-| **Extended (EXT)** | Opcode + $hh ll$ (16-bit address). | Operand value converted to 16-bit hexadecimal ($hh$ high byte, $ll$ low byte). | |
+| ADDR Mode | Encoding Components | Calculation Details |
+| :--- | :--- | :--- |
+| **Inherente (INH)** | Opcode only (1 or 2 bytes). | No additional calculation. |
+| **Immediate (IMM)** | Opcode + $ii$ (8-bit) or $jj kk$ (16-bit). | Operand converted to hexadecimal format corresponding to 1 or 2 bytes, depending on range. |
+| **Direct (DIR)** | Opcode + $dd$ (8-bit address). | Operand value is converted to 8-bit hexadecimal. |
+| **Extended (EXT)** | Opcode + $hh ll$ (16-bit address). | Operand value converted to 16-bit hexadecimal ($hh$ high byte, $ll$ low byte). |
 
 #### C. Indexed Addressing Encoding
 
 Indexed addressing modes (IDX, IDX1, IDX2) require calculating the postbyte ($xb$) using lookup tables (A-3, A-4 on the Manual | [./resources/postbyte.csv] for the program).
 
-| ADDR Mode | Encoding Components | Calculation Details | Source |
-| :--- | :--- | :--- | :--- |
-| **IDX (5-bit, Pre/Post, Acc)** | Opcode + $xb$ (postbyte). | $xb$ calculated based on offset (if 5-bit) or increment/decrement/accumulator type and register (X, Y, SP, PC) using Table A-3/A-4. | |
-| **IDX1 (9-bit offset)** | Opcode + $xb$ + $ff$ (extension byte). | $xb$ encodes the register and the sign bit. $ff$ is the 8-bit lower portion of the offset. Positive values use absolute hex value for $ff$. Negative values use the 2's complement of the absolute value for $ff$. | |
-| **IDX2 (16-bit offset)** | Opcode + $xb$ + $ee ff$ (two extension bytes). | $xb$ is calculated using Table A-3/A-4. $ee ff$ is the 16-bit hexadecimal representation of the offset value. | |
-| **Indexed Indirect [IDX2]**| Opcode + $xb$ + $ee ff$ (two extension bytes). | $xb$ uses the specific encoding for 16-bit offset indexed-indirect (Table A-3/A-4). $ee ff$ is the 16-bit hexadecimal value of the numeric operand within the brackets. | |
-| **Indexed Indirect [D,IDX]**| Opcode + $xb$. | $xb$ uses the specific encoding for D accumulator offset indexed-indirect (Table A-3/A-4). | |
+| ADDR Mode | Encoding Components | Calculation Details |
+| :--- | :--- | :--- |
+| **IDX (5-bit, Pre/Post, Acc)** | Opcode + $xb$ (postbyte). | $xb$ calculated based on offset (if 5-bit) or increment/decrement/accumulator type and register (X, Y, SP, PC) using Table A-3/A-4. |
+| **IDX1 (9-bit offset)** | Opcode + $xb$ + $ff$ (extension byte). | $xb$ encodes the register and the sign bit. $ff$ is the 8-bit lower portion of the offset. Positive values use absolute hex value for $ff$. Negative values use the 2's complement of the absolute value for $ff$. |
+| **IDX2 (16-bit offset)** | Opcode + $xb$ + $ee ff$ (two extension bytes). | $xb$ is calculated using Table A-3/A-4. $ee ff$ is the 16-bit hexadecimal representation of the offset value. |
+| **Indexed Indirect [IDX2]**| Opcode + $xb$ + $ee ff$ (two extension bytes). | $xb$ uses the specific encoding for 16-bit offset indexed-indirect (Table A-3/A-4). $ee ff$ is the 16-bit hexadecimal value of the numeric operand within the brackets. |
+| **Indexed Indirect [D,IDX]**| Opcode + $xb$. | $xb$ uses the specific encoding for D accumulator offset indexed-indirect (Table A-3/A-4). |
 
 #### D. Relative Addressing Encoding
 
