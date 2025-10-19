@@ -53,3 +53,11 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+# assembler 
+build/bin/assembler
+
+# Manual
+resources/Motorola_68HC12_Reference_Manual_1996.pdf
+# Editor
+compile_commands.json

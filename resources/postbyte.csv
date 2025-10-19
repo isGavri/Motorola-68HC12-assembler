@@ -1,0 +1,257 @@
+Source code syntax,Type offset used,Postbyte (xb)
+"0,X",5b const,00
+"1,X",5b const,01
+"2,X",5b const,02
+"3,X",5b const,03
+"4,X",5b const,04
+"5,X",5b const,05
+"6,X",5b const,06
+"7,X",5b const,07
+"8,X",5b const,08
+"9,X",5b const,09
+"10,X",5b const,0A
+"11,X",5b const,0B
+"12,X",5b const,0C
+"13,X",5b const,0D
+"14,X",5b const,0E
+"15,X",5b const,0F
+"-16,X",5b const,10
+"-15,X",5b const,11
+"-14,X",5b const,12
+"-13,X",5b const,13
+"-12,X",5b const,14
+"-11,X",5b const,15
+"-10,X",5b const,16
+"-9,X",5b const,17
+"-8,X",5b const,18
+"-7,X",5b const,19
+"-6,X",5b const,1A
+"-5,X",5b const,1B
+"-4,X",5b const,1C
+"-3,X",5b const,1D
+"-2,X",5b const,1E
+"-1,X",5b const,1F
+"1,+X",pre-inc,20
+"2,+X",pre-inc,21
+"3,+X",pre-inc,22
+"4,+X",pre-inc,23
+"5,+X",pre-inc,24
+"6,+X",pre-inc,25
+"7,+X",pre-inc,26
+"8,+X",pre-inc,27
+"8,-X",pre-dec,28
+"7,-X",pre-dec,29
+"6,-X",pre-dec,2A
+"5,-X",pre-dec,2B
+"4,-X",pre-dec,2C
+"3,-X",pre-dec,2D
+"2,-X",pre-dec,2E
+"1,-X",pre-dec,2F
+"1,X+",post-inc,30
+"2,X+",post-inc,31
+"3,X+",post-inc,32
+"4,X+",post-inc,33
+"5,X+",post-inc,34
+"6,X+",post-inc,35
+"7,X+",post-inc,36
+"8,X+",post-inc,37
+"8,X-",post-dec,38
+"7,X-",post-dec,39
+"6,X-",post-dec,3A
+"5,X-",post-dec,3B
+"4,X-",post-dec,3C
+"3,X-",post-dec,3D
+"2,X-",post-dec,3E
+"1,X-",post-dec,3F
+"0,Y",5b const,40
+"1,Y",5b const,41
+"2,Y",5b const,42
+"3,Y",5b const,43
+"4,Y",5b const,44
+"5,Y",5b const,45
+"6,Y",5b const,46
+"7,Y",5b const,47
+"8,Y",5b const,48
+"9,Y",5b const,49
+"10,Y",5b const,4A
+"11,Y",5b const,4B
+"12,Y",5b const,4C
+"13,Y",5b const,4D
+"14,Y",5b const,4E
+"15,Y",5b const,4F
+"-16,Y",5b const,50
+"-15,Y",5b const,51
+"-14,Y",5b const,52
+"-13,Y",5b const,53
+"-12,Y",5b const,54
+"-11,Y",5b const,55
+"-10,Y",5b const,56
+"-9,Y",5b const,57
+"-8,Y",5b const,58
+"-7,Y",5b const,59
+"-6,Y",5b const,5A
+"-5,Y",5b const,5B
+"-4,Y",5b const,5C
+"-3,Y",5b const,5D
+"-2,Y",5b const,5E
+"-1,Y",5b const,5F
+"1,+Y",pre-inc,60
+"2,+Y",pre-inc,61
+"3,+Y",pre-inc,62
+"4,+Y",pre-inc,63
+"5,+Y",pre-inc,64
+"6,+Y",pre-inc,65
+"7,+Y",pre-inc,66
+"8,+Y",pre-inc,67
+"8,-Y",pre-dec,68
+"7,-Y",pre-dec,69
+"6,-Y",pre-dec,6A
+"5,-Y",pre-dec,6B
+"4,-Y",pre-dec,6C
+"3,-Y",pre-dec,6D
+"2,-Y",pre-dec,6E
+"1,-Y",pre-dec,6F
+"1,Y+",post-inc,70
+"2,Y+",post-inc,71
+"3,Y+",post-inc,72
+"4,Y+",post-inc,73
+"5,Y+",post-inc,74
+"6,Y+",post-inc,75
+"7,Y+",post-inc,76
+"8,Y+",post-inc,77
+"8,Y-",post-dec,78
+"7,Y-",post-dec,79
+"6,Y-",post-dec,7A
+"5,Y-",post-dec,7B
+"4,Y-",post-dec,7C
+"3,Y-",post-dec,7D
+"2,Y-",post-dec,7E
+"1,Y-",post-dec,7F
+"0,SP",5b const,80
+"1,SP",5b const,81
+"2,SP",5b const,82
+"3,SP",5b const,83
+"4,SP",5b const,84
+"5,SP",5b const,85
+"6,SP",5b const,86
+"7,SP",5b const,87
+"8,SP",5b const,88
+"9,SP",5b const,89
+"10,SP",5b const,8A
+"11,SP",5b const,8B
+"12,SP",5b const,8C
+"13,SP",5b const,8D
+"14,SP",5b const,8E
+"15,SP",5b const,8F
+"-16,SP",5b const,90
+"-15,SP",5b const,91
+"-14,SP",5b const,92
+"-13,SP",5b const,93
+"-12,SP",5b const,94
+"-11,SP",5b const,95
+"-10,SP",5b const,96
+"-9,SP",5b const,97
+"-8,SP",5b const,98
+"-7,SP",5b const,99
+"-6,SP",5b const,9A
+"-5,SP",5b const,9B
+"-4,SP",5b const,9C
+"-3,SP",5b const,9D
+"-2,SP",5b const,9E
+"-1,SP",5b const,9F
+"1,+SP",pre-inc,A0
+"2,+SP",pre-inc,A1
+"3,+SP",pre-inc,A2
+"4,+SP",pre-inc,A3
+"5,+SP",pre-inc,A4
+"6,+SP",pre-inc,A5
+"7,+SP",pre-inc,A6
+"8,+SP",pre-inc,A7
+"8,-SP",pre-dec,A8
+"7,-SP",pre-dec,A9
+"6,-SP",pre-dec,AA
+"5,-SP",pre-dec,AB
+"4,-SP",pre-dec,AC
+"3,-SP",pre-dec,AD
+"2,-SP",pre-dec,AE
+"1,-SP",pre-dec,AF
+"1,SP+",post-inc,B0
+"2,SP+",post-inc,B1
+"3,SP+",post-inc,B2
+"4,SP+",post-inc,B3
+"5,SP+",post-inc,B4
+"6,SP+",post-inc,B5
+"7,SP+",post-inc,B6
+"8,SP+",post-inc,B7
+"8,SP-",post-dec,B8
+"7,SP-",post-dec,B9
+"6,SP-",post-dec,BA
+"5,SP-",post-dec,BB
+"4,SP-",post-dec,BC
+"3,SP-",post-dec,BD
+"2,SP-",post-dec,BE
+"1,SP-",post-dec,BF
+"0,PC",5b const,C0
+"1,PC",5b const,C1
+"2,PC",5b const,C2
+"3,PC",5b const,C3
+"4,PC",5b const,C4
+"5,PC",5b const,C5
+"6,PC",5b const,C6
+"7,PC",5b const,C7
+"8,PC",5b const,C8
+"9,PC",5b const,C9
+"10,PC",5b const,CA
+"11,PC",5b const,CB
+"12,PC",5b const,CC
+"13,PC",5b const,CD
+"14,PC",5b const,CE
+"15,PC",5b const,CF
+"-16,PC",5b const,D0
+"-15,PC",5b const,D1
+"-14,PC",5b const,D2
+"-13,PC",5b const,D3
+"-12,PC",5b const,D4
+"-11,PC",5b const,D5
+"-10,PC",5b const,D6
+"-9,PC",5b const,D7
+"-8,PC",5b const,D8
+"-7,PC",5b const,D9
+"-6,PC",5b const,DA
+"-5,PC",5b const,DB
+"-4,PC",5b const,DC
+"-3,PC",5b const,DD
+"-2,PC",5b const,DE
+"-1,PC",5b const,DF
+"n,X",9b const,E0
+"-n,X",9b const,E1
+"n,X",16b const,E2
+"[n,X]",16b indr,E3
+"A,X",A offset,E4
+"B,X",B offset,E5
+"D,X",D offset,E6
+"[D,X]",D indirect,E7
+"n,Y",9b const,E8
+"-n,Y",9b const,E9
+"n,Y",16b const,EA
+"[n,Y]",16b indr,EB
+"A,Y",A offset,EC
+"B,Y",B offset,ED
+"D,Y",D offset,EE
+"[D,Y]",D indirect,EF
+"n,SP",9b const,F0
+"-n,SP",9b const,F1
+"n,SP",16b const,F2
+"[n,SP]",16b indr,F3
+"A,SP",A offset,F4
+"B,SP",B offset,F5
+"D,P",D offset,F6
+"[D,SP]",D indirect,F7
+"n,PC",9b const,F8
+"-n,PC",9b const,F9
+"n,PC",16b const,FA
+"[n,PC]",16b indr,FB
+"A,PC",A offset,FC
+"B,PC",B offset,FD
+"D,PC",D offset,FE
+"[D,PC]",D indirect,FF
