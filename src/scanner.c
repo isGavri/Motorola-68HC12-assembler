@@ -5,12 +5,37 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+ * Represents a complete assembly language line with its components.
+ * Contains the three main parts of an assembly instruction:
+ * optional label, mandatory opcode, and optional operand.
+ */
 typedef struct {
   Token label;
   Token opcode;
   Token operand;
 } Line;
 
+/**
+ * Prints a formatted error message in red color.
+ * Creates a formatted error message and prints it with ANSI color codes.
+ * Handles memory allocation errors gracefully.
+ */
+void print_error(char* message, char* literal) {
+  char* error;
+  if (0 > asprintf(&error, message, literal)) {
+    perror("Error allocating memory for string error");
+    return;
+  }
+  printf("\x1b[31m --> ERROR:\x1b[0m %s\n", error);
+  free(error);
+}
+
+/**
+ * Validates if a character is valid for use in a label.
+ * First character must be alphabetic. Subsequent characters can be
+ * alphabetic, numeric, or underscore.
+ */
 bool is_valid_label_char(char c, bool is_first) {
   if (is_first) {
     return isalpha(c);
@@ -18,6 +43,13 @@ bool is_valid_label_char(char c, bool is_first) {
   return isalpha(c) || isdigit(c) || c == '_';
 }
 
+/**
+ * Validates a label according to 68HC12 assembly rules.
+ * Valid labels must:
+ * - Be 3-8 characters long
+ * - Start with a letter
+ * - Contain only letters, digits, or underscores
+ */
 bool validate_label(const char* label) {
   size_t len = strlen(label);
   if (len < 3 || len > 8) {
@@ -32,6 +64,13 @@ bool validate_label(const char* label) {
   return true;
 }
 
+/**
+ * Validates an opcode according to 68HC12 assembly rules.
+ * Valid opcodes must:
+ * - Be 1-5 characters long
+ * - Start with a letter
+ * - Contain only letters or dots (for pseudo-ops like ORG, FCB, etc.)
+ */
 bool validate_opcode(const char* opcode) {
   size_t len = strlen(opcode);
   if (len == 0 || len > 5) {
@@ -50,6 +89,11 @@ bool validate_opcode(const char* opcode) {
   return true;
 }
 
+/**
+ * Extracts the next word from a line of assembly code.
+ * Skips leading whitespace, extracts characters until whitespace or comment,
+ * and advances the line pointer. Caller must free the returned string.
+ */
 char* extract_word(char** line_ptr) {
   while (**line_ptr && isspace((unsigned char)**line_ptr)) {
     (*line_ptr)++;
@@ -80,6 +124,17 @@ char* extract_word(char** line_ptr) {
   return word;
 }
 
+/**
+ * Tokenizes a single line of assembly code into label, opcode, and operand.
+ * Parses assembly line format:
+ * - Optional label ending with ':'
+ * - Mandatory opcode (or END directive)
+ * - Optional operand
+ * - Lines starting with ';' are comments
+ * - Maximum line length is 80 characters
+ * 
+ * Returns error tokens if validation fails for any component.
+ */
 Line tokenize(char* line) {
   Line l = {0};
 
@@ -158,6 +213,15 @@ Line tokenize(char* line) {
   return l;
 }
 
+/**
+ * Prints the tokens from a parsed line to stdout.
+ * Displays formatted output for:
+ * - Comments
+ * - Valid tokens (label, opcode, operand)
+ * - Error messages for invalid tokens
+ * 
+ * Frees all dynamically allocated memory in the Line structure.
+ */
 void printTokens(Line line) {
   if (line.opcode.type == NULL_T && line.label.type == NULL_T &&
       line.operand.type == NULL_T) {
@@ -165,21 +229,23 @@ void printTokens(Line line) {
   }
 
   if (line.opcode.type == COMMENT) {
-    printf("comentario\n");
+    printf("Comentario\n");
   } else if (line.label.type == ERROR) {
-    printf("--> ERROR: Label '%s:' is invalid (must be 3-8 characters, start "
-           "with letter, contain only letters, numbers, or underscores).\n",
-           line.label.literal);
+    print_error(
+        "Label '%s:' is invalid (must be 3-8 characters, start "
+        "with letter, contain only letters, numbers, or underscores).",
+        line.label.literal);
   } else if (line.opcode.type == ERROR) {
     if (line.opcode.literal &&
         strcmp(line.opcode.literal, "Missing opcode") == 0) {
-      printf("--> ERROR: %s (opcode is mandatory).\n", line.opcode.literal);
+      print_error("%s (opcode is mandatory).",
+                  line.opcode.literal);
     } else if (line.opcode.literal) {
-      printf("--> ERROR: Opcode '%s' is invalid (must be max 5 characters and "
-             "start with letter).\n",
+      print_error("Opcode '%s' is invalid (must be max 5 characters and "
+             "start with letter).",
              line.opcode.literal);
     } else {
-      printf("--> ERROR: Missing opcode.\n");
+      print_error("Missing opcode.", NULL);
     }
   } else {
     printf("LABEL = %s, OPCODE = %s, OPERAND = %s\n",
@@ -199,6 +265,12 @@ void printTokens(Line line) {
   if (line.operand.literal) free(line.operand.literal);
 }
 
+/**
+ * Analyzes and tokenizes a Motorola 68HC12 assembly file.
+ * Opens the file, reads line by line (max 256 chars per line),
+ * tokenizes each line, and prints the results. Processing stops
+ * when an END directive is encountered or EOF is reached.
+ */
 void analyze_file(char* filename) {
   FILE* file = fopen(filename, "r");
   if (!file) {

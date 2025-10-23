@@ -61,3 +61,5 @@ build/bin/assembler
 resources/Motorola_68HC12_Reference_Manual_1996.pdf
 # Editor
 compile_commands.json
+# Clangd
+.cache/
