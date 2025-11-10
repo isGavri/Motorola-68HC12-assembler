@@ -2,34 +2,42 @@
 #define SCANNER_H
 
 #include <stdbool.h>
+#include <stdint.h>
 
-/**
- * Token types for Motorola 68HC12 assembly language.
- * Represents different types of tokens that can be identified in assembly code.
- */
 typedef enum {
   NULL_T,
-  COMMENT,
-  LABEL,
-  OPCODE,
-  OPERAND,
-  END,
-  ERROR
-} TokenType;
+  COMMENT, // ;
+  LABEL, // ET1:
+  OPCODE, // in /resources/isa.csv or /resources/direct.csv
+  OPERAND, // "Guessed" on parsing
+  END, // END directive
+  ERROR, // Used to report errors
+  IMM, // #
+  HEX, // $
+  BIN, // %
+  OCT, // @
+} token_type_t;
 
-/**
- * Represents a single token with its type and literal value.
- */
 typedef struct {
-  TokenType type;
+  token_type_t type;
   char *literal;
-} Token;
+} token_t;
 
-/**
- * Analyzes and tokenizes a Motorola 68HC12 assembly file.
- * Opens the file, reads line by line, tokenizes each line, and prints results.
- * Stops processing when END directive is encountered.
- */
+typedef struct {
+// CONTLOC - 4 bytes
+// LABEL - 9 bytes 3-8 char
+// CODOP - 6 bytes 5 char
+// OPR - 15 bytes
+// ADDR - 8 bytes [D,IDX] 7 + '\0'
+// SIZE - 1 byte max size 5 bytes
+  uint8_t size;
+  uint8_t address;
+  token_t codop;
+  token_t label;
+  token_t opr;
+  char* mode;
+} line_t;
+
 void analyze_file(char *filename);
 
 #endif

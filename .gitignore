@@ -2,7 +2,6 @@
 *.d
 
 # Object files
-*.o
 *.ko
 *.obj
 *.elf
@@ -56,6 +55,7 @@ dkms.conf
 
 # assembler 
 build/bin/assembler
+build/obj/*
 
 # Manual
 resources/Motorola_68HC12_Reference_Manual_1996.pdf

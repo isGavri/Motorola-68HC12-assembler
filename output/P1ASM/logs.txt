@@ -1,0 +1,13 @@
+=== Analyzing ===
+
+Using file examples/P1ASM.asm
+Line 1: Comment  (null)  0  0  
+Line 2: 0  0  
+Line 3: 0  0  
+Line 4: 0  0  
+Line 5: 0  0  
+Line 6: 0  0  
+Line 7: Comment  (null)  0  0  
+Line 8: Comment  (null)  0  0  
+Line 9: 0  0  
+Line 10: 0  0  

@@ -1,4 +1,3 @@
-Source code syntax,Type offset used,Postbyte (xb)
 "0,X",5b const,00
 "1,X",5b const,01
 "2,X",5b const,02

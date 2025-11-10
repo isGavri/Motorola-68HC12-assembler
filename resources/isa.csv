@@ -1,4 +1,3 @@
-CODOP,Operandos,Addr. Mode,Source Form,Bytes por calcular,Total de Bytes
 ABA,-,INH,18 06,0,2
 ABX,-,IDX,1A E5,0,2
 ABY,-,IDX,19 ED,0,2
