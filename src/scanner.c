@@ -1,5 +1,6 @@
 #include "scanner.h"
 #include "io.h"
+#include <ctype.h>
 #include <stdbool.h>
 #include <stdio.h>
 
@@ -7,17 +8,27 @@ line_t tokenize(char *line) {
 
   line_t linet = {0};
 
-  for (unsigned long c = 0; c < 256; c++) {
-    if (line[c] == '\0') {
-      break;
+  int i = 0;
+  char c;
+  while ((c = line[i]) != '\0') {
+
+    if (c == ';') {
+      if (!linet.label.type) {
+        linet.label.type = COMMENT;
+        linet.codop.type = COMMENT;
+        linet.opr.type = COMMENT;
+      } else if (!linet.codop.type) {
+        linet.codop.type = COMMENT;
+        linet.opr.type = COMMENT;
+      }
+      return linet;
     }
 
-    if (line[c] == ';') {
-      if (linet.codop.literal == NULL) {
-        linet.codop.type = COMMENT;
-      }
-      break;
+    // Label or opcode
+    if (isalpha(c)) {
+
     }
+    i++;
   }
   return linet;
 }
@@ -30,9 +41,10 @@ void printTokens(line_t tokens) {
   } else if (tokens.codop.type == COMMENT) {
     write_logs("Comment  %s  ", tokens.codop.literal);
   }
-  write_logs("%u  ", tokens.size);
-  write_logs("%u  ", tokens.address);
-  write_logs("%s", tokens.codop.type == OPERAND ? "Operand" : "\n");
+  // write_logs("%u  ", tokens.size);
+  // write_logs("%u  ", tokens.address);
+  // write_logs("%s", tokens.codop.type == OPERAND ? "Operand" : "\n");
+  write_logs("\n");
 }
 
 void analyze_file(char *filename) {
